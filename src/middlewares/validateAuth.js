@@ -14,7 +14,7 @@ export async function validateAuth(req, res, next){
 
         if (response.rowCount === 0) return res.status(401).send({message: 'Faça log-in para utilizar o Shortly'});
 
-        res.locals.session = response;
+        res.locals.session = response.rows[0];
 
         next();
 
