@@ -1,9 +1,8 @@
 import Joi from "joi";
 
-const sessionSchema = Joi.object({
-    name: Joi.string().required(),
+const signInSchema = Joi.object({
     email: Joi.email().required(),
     password: Joi.password().required()
 })
 
-export default sessionSchema
+export default signInSchema
