@@ -10,11 +10,11 @@ export async function signUp(req, res){
 
     try{
 
-        const doubleEmail = await db.query(`SELECT * FROM accounts WHERE email=$1;`, [email]);
+        const doubleEmail = await db.query(`SELECT * FROM users WHERE email=$1;`, [email]);
 
         if (doubleEmail.rowCount > 0) return res.status(409).send({message: 'Este e-mail ja está cadastrado'});
 
-        await db.query(`INSERT INTO accounts ('name', 'email', 'password') VALUES ($1, $2, $3);`, [name, email, hash]);
+        await db.query(`INSERT INTO users ('name', 'email', 'password') VALUES ($1, $2, $3);`, [name, email, hash]);
 
         res.sendStatus(201);
 
@@ -29,7 +29,7 @@ export async function signIn(req, res){
 
     try{
 
-        const response = await db.query(`SELECT * FROM accounts WHERE email=$1;`, [email]);
+        const response = await db.query(`SELECT * FROM users WHERE email=$1;`, [email]);
 
         if (response.rowCount === 0) return res.status(401).send({message: 'Este e-mail não foi cadastrado'});
 
