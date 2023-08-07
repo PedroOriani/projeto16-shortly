@@ -14,7 +14,7 @@ export async function validateAuth(req, res, next){
 
         if (response.rowCount === 0) return res.status(401).send({message: 'Faça log-in para utilizar o Shortly'});
 
-        const user = await db.query(`SELECT * FROM users WHERE id=$1;`[response.rows[0].userId]);
+        const user = await db.query(`SELECT * FROM users WHERE id=$1;`, [response.rows[0].userId]);
 
         if (!user) return res.status(401).send('Usuário não autorizado')
 

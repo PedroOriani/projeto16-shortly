@@ -18,7 +18,7 @@ export async function shortingUrl(req, res){
         res.status(201).send({id: postedUrl.rows[0].id, shortUrl: shortUrl});
 
     }catch (err){
-        res.status(500).send('erro na url.controllers');
+        res.status(500).send(err.message);
     }
 }
 
