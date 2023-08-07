@@ -1,3 +1,5 @@
+import { db } from "../database/database.connection.js";
+
 export async function getInfos(req, res){
 
     const user = req.locals.user;
