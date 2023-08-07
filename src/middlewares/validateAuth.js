@@ -20,6 +20,8 @@ export async function validateAuth(req, res, next){
 
         res.locals.session = response.rows[0];
 
+        res.locals.user = user
+
     }catch (err){
         res.status(500).send(err.message)
     }
