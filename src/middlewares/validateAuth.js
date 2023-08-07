@@ -18,6 +18,8 @@ export async function validateAuth(req, res, next){
 
         if (!user) return res.status(401).send('Usuário não autorizado')
 
+        res.locals.session = response.rows[0];
+
         res.locals.user = user
 
     }catch (err){
