@@ -11,7 +11,7 @@ export async function shortingUrl(req, res){
 
     try{
 
-        await db.query(`INSERT INTO urls ("userId", url, "shortUrl") VALUES ($1, $2, $3);`, [user.rows[0].id, url, shortUrl]);
+        await db.query(`INSERT INTO urls ("userID", url, "shortUrl") VALUES ($1, $2, $3);`, [user.rows[0].id, url, shortUrl]);
 
         const postedUrl = await db.query(`SELECT * FROM urls WHERE "shortUrl"=$1;`, [shortUrl]);
 
