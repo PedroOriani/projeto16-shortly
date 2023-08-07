@@ -1,10 +1,5 @@
 import Joi from "joi";
 
-//REAVER ESSE SCHEMA
-
-const urlSchema = Joi.object({
-    shortUrl: Joi.uri().required(),
-    url: Joi.uri().required()
+export const urlSchema = Joi.object({
+    url: Joi.string().uri().required()
 })
-
-export default urlSchema
