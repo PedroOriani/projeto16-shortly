@@ -11,7 +11,7 @@ export async function shortingUrl(req, res){
 
     try{
 
-        await db.query(`INSERT INTO urls ("userId", url, "shortUrl") VALUES ($1, $2, $3);`, [user.rows[0].id, url, shortUrl]);
+        await db.query(`INSERT INTO urls ("userID", url, "shortUrl") VALUES ($1, $2, $3);`, [user.rows[0].id, url, shortUrl]);
 
         const postedUrl = await db.query(`SELECT * FROM url WHERE "shortUrl"=$1;`, [shortUrl]);
 
@@ -72,7 +72,7 @@ export async function deleteUrl(req, res){
 
         if (response.rowCount === 0) return res.sendStatus(404);
 
-        const verUser = await db.query(`SELECT * FROM urls WHERE id=$1 AND "userId"=$2;`, [id, user.rows[0].id]);
+        const verUser = await db.query(`SELECT * FROM urls WHERE id=$1 AND "userID"=$2;`, [id, user.rows[0].id]);
 
         if (verUser.rowCount === 0) return res.sendStatus(401);
 

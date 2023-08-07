@@ -12,7 +12,7 @@ export async function getInfos(req, res){
                 users.name AS name,
                 SUM (urls."visitCount") AS "visitCount"
             FROM urls
-            JOIN users ON urls."userId" = users.id
+            JOIN users ON urls."userID" = users.id
             WHERE id=$1
             GROUP BY users.id
         `, [user.rows[0].id]);
@@ -24,7 +24,7 @@ export async function getInfos(req, res){
                 urls.url AS url,
                 urls."visitCount" AS "visitCount"
             FROM urls
-            JOIN users ON urls."userId" = users.id
+            JOIN users ON urls."userID" = users.id
             WHERE users.id=$1
             GROUP BY urls.id
         `, [user.rows[0].id])
@@ -63,7 +63,7 @@ export async function getRanking(req, res){
                 COUNT(urls.id) AS "linksCount",
                 SUM (url."visitCount") AS "visitCount"
             FROM user
-            LEFT JOIN urls ON users.id = urls."userId"
+            LEFT JOIN urls ON users.id = urls."userID"
             GROUP BY id
             ORDER BY "visitCount" DESC
             LIMIT 10
