@@ -6,7 +6,7 @@ export async function getInfos(req, res){
 
     try{
 
-        if (user = '') return res.send('user vazio')
+        if (user === '') return res.send('user vazio')
 
         const { response } = await db.query(`
             SELECT 
@@ -60,13 +60,13 @@ export async function getRanking(req, res){
 
         const response = await db.query(`
             SELECT
-                user.id AS id,
+                users.id AS id,
                 users.name AS name,
                 COUNT(urls.id) AS "linksCount",
-                SUM (url."visitCount") AS "visitCount"
-            FROM user
+                SUM (urls."visitCount") AS "visitCount"
+            FROM users
             LEFT JOIN urls ON users.id = urls."userID"
-            GROUP BY id
+            GROUP BY users.id
             ORDER BY "visitCount" DESC
             LIMIT 10
         `)
