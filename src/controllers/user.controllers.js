@@ -26,6 +26,7 @@ export async function getInfos(req, res){
             FROM urls
             JOIN users ON urls."userId" = users.id
             WHERE users.id=$1
+            GROUP BY urls.id
         `, [user.rows[0].id])
 
         //GROUP BY urls.id --> TALVEZ PRECISE COLOCAR ESSA ULTIMA LINHA NA "urls"
