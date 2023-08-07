@@ -23,6 +23,6 @@ export async function validateAuth(req, res, next){
         next();
 
     }catch (err){
-        res.status(500).send(err.message)
+        res.status(500).send('erro na validationAuth')
     }
 }
