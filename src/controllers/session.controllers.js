@@ -4,9 +4,9 @@ import { v4 as uuid } from "uuid";
 
 export async function signUp(req, res){
 
-    const { name, email, passsword } = req.body;
+    const { name, email, password } = req.body;
 
-    const hash = bcrypt.hashSync(passsword, 10);
+    const hash = bcrypt.hashSync(password, 10);
 
     try{
 
