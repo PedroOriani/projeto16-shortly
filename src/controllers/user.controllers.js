@@ -4,7 +4,7 @@ export async function getInfos(req, res){
 
     try{
 
-        const { response } = await db.query(`
+        const response = await db.query(`
             SELECT 
                 users.id AS id,
                 users.name AS name,
@@ -14,8 +14,6 @@ export async function getInfos(req, res){
             WHERE id=$1
             GROUP BY users.id
         `, [user.rows[0].id]);
-
-        const userInfos = response[0];
 
         const urls = await db.query(`
             SELECT 
@@ -28,16 +26,16 @@ export async function getInfos(req, res){
             WHERE users.id=$1
         `, [user.rows[0].id])
 
-        //GRUOP BY urls.id --> TALVEZ PRECISE COLOCAR ESSA ULTIMA LINHA NA "urls"
+        //GROUP BY urls.id --> TALVEZ PRECISE COLOCAR ESSA ULTIMA LINHA NA "urls"
 
-        const shortenedUrls = userInfos.rows.map(({urlId, shortUrl, url, visitCount}) => ({
+        const shortenedUrls = urls.rows.map(({urlId, shortUrl, url, visitCount}) => ({
             id: urlId,
             shortUrl: shortUrl,
             url: url,
             visitCount: visitCount
         }));
 
-        const { id, name, visitCount } = userInfos;
+        const { id, name, visitCount } = response.rows[0];
 
         const infos ={
             id,
@@ -54,7 +52,23 @@ export async function getInfos(req, res){
 }
 
 export async function getRanking(req, res){
+
     try{
+
+        const response = await db.query(`
+            SELECT
+                user.id AS id,
+                users.name AS name,
+                COUNT(urls.id) AS "linksCount",
+                SUM (url."visitCount") AS "visitCount"
+            FROM user
+            LEFT JOIN urls ON users.id = urls."userId"
+            GROUP BY id
+            ORDER BY "visitCount" DESC
+            LIMIT 10
+        `)
+
+        res.status(200).send(response);
 
     }catch (err){
         res.status(500).send(err.message)
