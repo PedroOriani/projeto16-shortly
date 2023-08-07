@@ -4,6 +4,7 @@ import { db } from "../database/database.connection.js";
 export async function shortingUrl(req, res){
 
     const url = req.body.url;
+    
     const user = res.locals.user;
 
     const shortUrl = nanoid();
