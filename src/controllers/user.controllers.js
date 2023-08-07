@@ -6,7 +6,7 @@ export async function getInfos(req, res){
 
     try{
 
-        if (user === '') return res.send('user vazio')
+        if (user.rows.length === 0) return res.send('user vazio')
 
         const { response } = await db.query(`
             SELECT 
