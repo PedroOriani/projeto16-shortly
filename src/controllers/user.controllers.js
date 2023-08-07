@@ -2,7 +2,7 @@ import { db } from "../database/database.connection.js";
 
 export async function getInfos(req, res){
 
-    const user = req.locals.user;
+    const user = res.locals.user;
 
     try{
 
@@ -69,7 +69,14 @@ export async function getRanking(req, res){
             LIMIT 10
         `)
 
-        res.status(200).send(response);
+        const ranking = response.rows.map(({id, name, linksCount, visitCount}) => ({
+            id,
+            name,
+            linksCount,
+            visitCount
+        }))
+
+        res.status(200).send(ranking);
 
     }catch (err){
         res.status(500).send(err.message)
