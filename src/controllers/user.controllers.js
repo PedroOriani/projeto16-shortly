@@ -6,8 +6,6 @@ export async function getInfos(req, res){
 
     try{
 
-        const userR = user.rows[0]
-
         const { response } = await db.query(`
             SELECT 
                 users.id AS id,
@@ -17,7 +15,7 @@ export async function getInfos(req, res){
             JOIN users ON urls."userID" = users.id
             WHERE users.id=$1
             GROUP BY users.id
-        `, [userR.id]);
+        `, [user.id]);
 
         const urls = await db.query(`
             SELECT 
@@ -29,7 +27,7 @@ export async function getInfos(req, res){
             JOIN users ON urls."userID" = users.id
             WHERE users.id=$1
             GROUP BY urls.id
-        `, [userR.id])
+        `, [user.id])
 
         const shortenedUrls = urls.rows.map(({urlId, shortUrl, url, visitCount}) => ({
             id: urlId,
