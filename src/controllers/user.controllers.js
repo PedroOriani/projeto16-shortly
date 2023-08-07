@@ -6,7 +6,7 @@ export async function getInfos(req, res){
 
     try{
 
-        const response = await db.query(`
+        const { response } = await db.query(`
             SELECT 
                 users.id AS id,
                 users.name AS name,
@@ -31,12 +31,12 @@ export async function getInfos(req, res){
 
         const shortenedUrls = urls.rows.map(({urlId, shortUrl, url, visitCount}) => ({
             id: urlId,
-            shortUrl: shortUrl,
-            url: url,
-            visitCount: visitCount
+            shortUrl,
+            url,
+            visitCount
         }));
 
-        const { id, name, visitCount } = response.rows[0];
+        const { id, name, visitCount } = response[0];
 
         const infos ={
             id,
