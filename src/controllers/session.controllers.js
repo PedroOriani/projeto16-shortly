@@ -14,7 +14,7 @@ export async function signUp(req, res){
 
         if (doubleEmail.rowCount === 1) return res.status(409).send({message: 'Este e-mail ja está cadastrado'});
 
-        await db.query(`INSERT INTO users ('name', 'email', 'password') VALUES ($1, $2, $3);`, [name, email, hash]);
+        await db.query(`INSERT INTO users (name, email, password) VALUES ($1, $2, $3);`, [name, email, hash]);
 
         res.sendStatus(201);
 
