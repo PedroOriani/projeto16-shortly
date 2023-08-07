@@ -13,7 +13,7 @@ export async function getInfos(req, res){
                 SUM (urls."visitCount") AS "visitCount"
             FROM urls
             JOIN users ON urls."userID" = users.id
-            WHERE id=$1
+            WHERE users.id=$1
             GROUP BY users.id
         `, [user.rows[0].id]);
 
@@ -39,9 +39,9 @@ export async function getInfos(req, res){
         const { id, name, visitCount } = response[0];
 
         const infos ={
-            id,
-            name,
-            visitCount,
+            id: id,
+            name: name,
+            visitCount: visitCount,
             shortenedUrls: shortenedUrls
         }
 
