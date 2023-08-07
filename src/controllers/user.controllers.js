@@ -6,7 +6,7 @@ export async function getInfos(req, res){
 
     try{
 
-        const { response } = await db.query(`
+        const { rows } = await db.query(`
             SELECT 
                 users.id AS id,
                 users.name AS name,
@@ -36,7 +36,7 @@ export async function getInfos(req, res){
             visitCount
         }));
 
-        const userData = response[0];
+        const userData = rows[0];
 
         const { id, name, visitCount } = userData;
 
