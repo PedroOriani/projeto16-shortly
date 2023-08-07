@@ -25,7 +25,7 @@ export async function signUp(req, res){
 
 export async function signIn(req, res){
 
-    const { email, passsword } = req.body
+    const { email, password } = req.body
 
     try{
 
@@ -35,7 +35,7 @@ export async function signIn(req, res){
 
         const user = response.rows[0];
 
-        const correctPassword = bcrypt.compareSync(passsword, user.passsword);
+        const correctPassword = bcrypt.compareSync(password, user.password);
 
         if (!correctPassword) return res.status(401).send({message: 'Senha incorreta'});
 
