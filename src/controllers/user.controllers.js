@@ -2,7 +2,7 @@ import { db } from "../database/database.connection.js";
 
 export async function getInfos(req, res){
 
-    const session = res.locals.session
+    const user = res.locals.user
 
     try{
 
@@ -15,7 +15,7 @@ export async function getInfos(req, res){
             JOIN users ON urls."userID" = users.id
             WHERE users.id=$1
             GROUP BY users.id
-        `, [session.userId]);
+        `, [user.rows[0].id]);
 
         const urls = await db.query(`
             SELECT 
@@ -27,7 +27,7 @@ export async function getInfos(req, res){
             JOIN users ON urls."userID" = users.id
             WHERE users.id=$1
             GROUP BY urls.id
-        `, [session.userId])
+        `, [user.rows[0].id])
 
         const shortenedUrls = urls.rows.map(({urlId, shortUrl, url, visitCount}) => ({
             id: urlId,
