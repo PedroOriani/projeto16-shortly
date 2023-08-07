@@ -48,7 +48,7 @@ export async function getInfos(req, res){
         res.status(200).send(infos);
 
     }catch (err){
-        res.status(500).send(err.message)
+        res.status(500).send('erro no controller')
     }
 }
 
