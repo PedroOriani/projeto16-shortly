@@ -6,6 +6,8 @@ export async function getInfos(req, res){
 
     try{
 
+        if (user = '') return res.send('user vazio')
+
         const { response } = await db.query(`
             SELECT 
                 users.id AS id,
@@ -48,7 +50,7 @@ export async function getInfos(req, res){
         res.status(200).send(infos);
 
     }catch (err){
-        res.status(500).send('erro no controller')
+        res.status(500).send(err.message)
     }
 }
 
