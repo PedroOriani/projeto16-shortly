@@ -1,4 +1,7 @@
 export async function getInfos(req, res){
+
+    const user = req.body
+
     try{
 
     }catch (err){

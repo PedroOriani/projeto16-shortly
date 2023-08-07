@@ -1,7 +1,20 @@
 import { nanoid } from "nanoid";
+import { db } from "../database/database.connection.js";
 
 export async function shortingUrl(req, res){
+
+    const url = req.body.url;
+    const user = res.locals.user;
+
+    const shortUrl = nanoid();
+
     try{
+
+        await db.query(`INSERT INTO urls ("userId", url, "shortUrl") VALUES ($1, $2, $3);` [user.rows[0].id, url, shortUrl]);
+
+        const postedUrl = await db.query(`SELECT * FROM url WHERE "shortUrl=$1;` [shortUrl])
+
+        res.status(200).send({id: postedUrl.rows[0].id, shortUrl})
 
     }catch (err){
         res.status(500).send(err.message)
