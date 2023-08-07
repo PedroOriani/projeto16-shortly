@@ -204,6 +204,22 @@ ALTER TABLE ONLY public.users
 
 
 --
+-- Name: sessions sessions_userID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sessions
+    ADD CONSTRAINT "sessions_userID_fkey" FOREIGN KEY ("userID") REFERENCES public.users(id);
+
+
+--
+-- Name: urls urls_userID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.urls
+    ADD CONSTRAINT "urls_userID_fkey" FOREIGN KEY ("userID") REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
